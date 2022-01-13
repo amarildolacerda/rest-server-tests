@@ -4,6 +4,7 @@ const expect = chai.expect;
 
 import { doesNotReject } from 'assert';
 import { hasUncaughtExceptionCaptureCallback } from 'process';
+import { dockerContainerStats } from 'systeminformation';
 import { Database } from './comum/database';
 import { testar } from './comum/parametros';
 
@@ -67,7 +68,19 @@ if (testar.pedido)
         it('NOVO PEDIDO DE VENDA', (done) => {
             Database.postResult('/v3/pedido/registrar', pedido).then((rsp) => {
                 expect(rsp.result.length).equal(rsp.rows);
-                expect(rsp.rows, '1'); done();
+                expect(rsp.rows, '1');
+                //console.log(rsp);
+                const dcto = `${rsp.result[0].pedido}`;
+                Database.deleteResult('/v3/sigcaut1', { dcto: dcto }).then(async (rsp) => {
+
+                    expect(rsp.rows).to.equal(1, 'não retornou 1 linha em deleteResult');
+                    const r1 = await Database.deleteResult('/v3/sigcauth', { dcto: dcto }).catch(e=>done(e));
+                    expect(r1.rows).to.equal(1, 'não retornou 1 linha em deleteResult r1')
+                    const r2 = await Database.deleteResult('/v3/sigcautp', { dcto: dcto }).catch(e=>done(e));
+                    expect(r2.rows).to.equal(1, 'não retornou 1 linha em deleteResult r2');
+                    done();
+
+                }).catch(e=>done(e));
             }).catch((e) => {
                 done(e);
             });
@@ -77,19 +90,17 @@ if (testar.pedido)
 
         it('testar lock sigcauth-1', (done) => {
             Database.getResult('/v3/sigcauth?$top=1').then((rsp) => {
-                assert(rsp.rows>0,'nao retornou linha de pedido'); 
+                assert(rsp.rows > 0, 'nao retornou linha de pedido');
                 expect(rsp.result.length).equal(rsp.rows);
                 var pedido = rsp.result[0];
                 Database.command(
                     `update sigcauth 
-                    set cliente = 0, filialretira = ${pedido.filial}, 
-                    qtdepessoa = 1, 
-                    operador = '10', 
-                    lote = ${pedido.lote}
+                    set  
+                    qtdepessoa = qtdepessoa 
                      where dcto = '${pedido.dcto}'  
-                     and data = '${pedido.data.substring(0,10)}'  
+                     and data = '${pedido.data.substring(0, 10)}'  
                      and lote = ${pedido.lote}  and filial = ${pedido.filial}`).then((rsp) => {
-                      //  console.log(rsp);
+                        expect(rsp.rows, 1);
                         done();
                     }).catch((e) => { console.log(e); done(e); });
             }).catch((e) => { console.log(e); done(e); });
@@ -98,14 +109,14 @@ if (testar.pedido)
         // testar lock sigcauth-1
         it('testar totalizar pedido', (done) => {
             Database.getResult('/v3/sigcauth?$top=1').then((rsp) => {
-                assert(rsp.rows>0,'nao retornou linha de pedido');
+                assert(rsp.rows > 0, 'nao retornou linha de pedido');
                 var pedido = rsp.result[0];
                 Database.command(
-                    `execute procedure WEB_REG_PEDIDO_TOTALIZA(1,'2021-12-30','35863001',58994)`).then((rsp) => {
-                            //console.log(rsp);
-                            expect(rsp.result.length).equal(rsp.rows);
-                            done();
-                        }).catch((e) => { console.log(e); done(e); });
+                    `execute procedure WEB_REG_PEDIDO_TOTALIZA(${pedido.filial},'${pedido.data.substring(0, 10)}','${pedido.dcto}',${pedido.lote})`).then((rsp) => {
+                        //console.log(rsp);
+                        expect(rsp.result.length).equal(rsp.rows);
+                        done();
+                    }).catch((e) => { console.log(e); done(e); });
             }).catch((e) => { console.log(e); done(e); });
         })
 
@@ -113,7 +124,7 @@ if (testar.pedido)
 
         it('testar lock sigcauth-2', (done) => {
             Database.getResult('/v3/sigcauth?$top=1').then((rsp) => {
-                assert(rsp.rows>0,'nao retornou linha de pedido'); 
+                assert(rsp.rows > 0, 'nao retornou linha de pedido');
                 var pedido = rsp.result[0];
                 Database.command(
                     `update sigcauth 
@@ -122,7 +133,7 @@ if (testar.pedido)
                     operador = '10', 
                     lote = ${pedido.lote}
                      where dcto = '${pedido.dcto}'  
-                     and data = '${pedido.data.substring(0,10)}'  
+                     and data = '${pedido.data.substring(0, 10)}'  
                      and lote = ${pedido.lote}  and filial = ${pedido.filial}`).then((rsp) => {
                         //console.log(rsp);
                         done();
