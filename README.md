@@ -4,7 +4,7 @@
 
 
 [como configurar o banco a ser testado]
-* abrir o arquivo   parametros.ts, onde contem a lista de bancos a serem testados;
+* abrir o arquivo   <comum/parametros.ts>, onde contem a lista de bancos a serem testados;
 
 exemplo:
 <pre>
