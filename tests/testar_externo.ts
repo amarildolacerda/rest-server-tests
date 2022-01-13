@@ -15,7 +15,7 @@ import { Database } from './comum/database';
 import { testar } from './comum/parametros';
 
 
-const connection = 'Bearer eyJ0eXBlIjoiand0Iiwicm9sZSI6InB1YmxpY3dlYiIsInRva2VuIjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmxlSEFpT2pFd01qYzRORFUyTkRNNExDSmtZWFJoSWpwN0ltTnZiblJoSWpvaU1UQXlNek1pTENKMWMzVmhjbWx2SWpvaWQySmhJaXdpYzJWdWFHRWlPaUozWW1FaUxDSnliMnhsSWpvaWNIVmliR2xqZDJWaUlpd2lZMjl1Ym1WamRHbHZiaUk2SW1SbGMybG5ibWRoYkd4bGNubHRZWEpsWTJoaGJDNWtlVzVrYm5NdWIzSm5Mekl6TURVeE9qRXdNak16SWl3aVpHRjBZU0k2SWpJd01qRXRNVEl0TUROVU1UUTZORGM2TVRndU5EWXlXaUo5TENKcFlYUWlPakUyTXpnMU5ESTRNemg5LkpxZ21KNzI0M1A3OHhWY0MtcktBTTJzSDJYMHY3Vk4tS2F4VThHQVprMkEifQ==';
+const connection = 'Bearer eyJ0eXBlIjoiZGJhIiwicm9sZSI6InB1YmxpY3dlYiIsInRva2VuIjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmxlSEFpT2pFd01qZ3lNREkyTWpZMkxDSmtZWFJoSWpwN0ltTnZiblJoSWpvaWMzUnZjbVVpTENKMWMzVmhjbWx2SWpvaWQySmhJaXdpYzJWdWFHRWlPaUozWW1FaUxDSnliMnhsSWpvaWNIVmliR2xqZDJWaUlpd2lZMjl1Ym1WamRHbHZiaUk2SW14dlkyRnNhRzl6ZEM4ek1EVXdPbk4wYjNKbElpd2laSEpwZG1WeUlqb2labUlpTENKa1lYUmhJam9pTWpBeU1pMHdNUzB4TTFReU1qb3lORG95Tmk0NE1qTmFJbjBzSW1saGRDSTZNVFkwTWpFeE1qWTJObjAuTVhxU2JMYWFGS0dPU25qXy1zaldlMzB6RnhuZjlsQ3FCVXllVE0zNmZKSSJ9';
 
 
 
@@ -34,9 +34,8 @@ if (testar.externo)
             } catch (e) { done(e); };
         });
         it('testar connectionString',(done)=>{
-           Database.getLoginNoCache(10233,'1','1',connection).then((token)=>{
-               //done(token);
-            Database.getResult('/v3/filial', 10233, token, connection).then(result => {
+           Database.getLoginNoCache('store','1','123',connection).then((token)=>{
+            Database.getResult('/v3/filial', 'store', token, connection).then(result => {
                 done();
             }).catch(err => {
                 done(err);

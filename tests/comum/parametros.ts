@@ -14,15 +14,15 @@ const lista = [{
     driver: 'fb',
     connection: undefined,
 
-},/*{
+},{
     nome: ' base teste (store) local',
     restserver: 'http://localhost:8886',
     conta: 'store',
     usuario: '1',
     senha: '123',
     driver: 'fb',
-    connection: undefined,
-}*/
+    connection: 'Bearer eyJ0eXBlIjoiZGJhIiwicm9sZSI6InB1YmxpY3dlYiIsInRva2VuIjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmxlSEFpT2pFd01qZ3lNREkyTWpZMkxDSmtZWFJoSWpwN0ltTnZiblJoSWpvaWMzUnZjbVVpTENKMWMzVmhjbWx2SWpvaWQySmhJaXdpYzJWdWFHRWlPaUozWW1FaUxDSnliMnhsSWpvaWNIVmliR2xqZDJWaUlpd2lZMjl1Ym1WamRHbHZiaUk2SW14dlkyRnNhRzl6ZEM4ek1EVXdPbk4wYjNKbElpd2laSEpwZG1WeUlqb2labUlpTENKa1lYUmhJam9pTWpBeU1pMHdNUzB4TTFReU1qb3lORG95Tmk0NE1qTmFJbjBzSW1saGRDSTZNVFkwTWpFeE1qWTJObjAuTVhxU2JMYWFGS0dPU25qXy1zaldlMzB6RnhuZjlsQ3FCVXllVE0zNmZKSSJ9',
+}
 ];
 
 const p = function () {
