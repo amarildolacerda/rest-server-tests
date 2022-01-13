@@ -6,6 +6,22 @@
 [como configurar o banco a ser testado]
 * abrir o arquivo   parametros.ts, onde contem a lista de bancos a serem testados;
 
+exemplo:
+<pre>
+{
+    nome: 'base teste m5 local',
+    restserver: 'http://localhost:8886',
+    conta: 'm5',
+    usuario: '1',
+    senha: '123',
+    driver: 'fb',
+    connection: undefined,
+
+} </pre>
+
+a propriedade "connection" é opcional para fazer roteamento de banco de dados instalado em endereço fisico diferente do V3;
+
+
 
 no windows, rodar    test.bat   para executar os loop de testes;
 
