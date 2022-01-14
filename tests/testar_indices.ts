@@ -16,7 +16,7 @@ if (testar.chave_primaria)
                 const n = rsp.result.indexOf('id');
                 if (n >= 0)
                     console.log('ordem:', n, 'Necessário alterar a primary key da sigcaut1 removendo o ID para evitar falha na exclusão de item. O ID não é conhecido ao inserir um item e já tentar excluí-lo em seguida.');
-                assert(n < 0, 'não removeu o id da chave primaria');
+                assert(n < 0, 'Necessário alterar a primary key da sigcaut1 removendo o ID para evitar falha na exclusão de item. O ID não é conhecido ao inserir um item e já tentar excluí-lo em seguida.');
                 //, 'não removeu o id da chave primaria'); //< 0, 'não pode ter o ID na primary key da tabela, mudar a primary key');
                 done();
             }).catch((e) => { console.log('não respondeu'); done(e); });
