@@ -73,11 +73,11 @@ if (testar.pedido)
                 const dcto = `${rsp.result[0].pedido}`;
                 Database.deleteResult('/v3/sigcaut1', { dcto: dcto }).then(async (rsp) => {
 
-                    expect(rsp.rows).to.equal(1, 'não retornou 1 linha em deleteResult');
+                    assert(rsp.rows>0, 'não retornou 1 linha em deleteResult sigcaut1');
                     const r1 = await Database.deleteResult('/v3/sigcauth', { dcto: dcto }).catch(e=>done(e));
-                    expect(r1.rows).to.equal(1, 'não retornou 1 linha em deleteResult r1')
+                    assert(r1.rows>0, 'não retornou 1 linha em deleteResult sigcauth')
                     const r2 = await Database.deleteResult('/v3/sigcautp', { dcto: dcto }).catch(e=>done(e));
-                    expect(r2.rows).to.equal(1, 'não retornou 1 linha em deleteResult r2');
+                    assert(r2.rows>0, 'não retornou 1 linha em deleteResult sigcautp');
                     done();
 
                 }).catch(e=>done(e));
