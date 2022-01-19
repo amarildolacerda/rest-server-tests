@@ -35,7 +35,7 @@ if (testar.externo)
         });
         it('testar connectionString',(done)=>{
            Database.getLoginNoCache('store','1','123',connection).then((token)=>{
-            Database.getResult('/v3/filial', 'store', token, connection).then(result => {
+            Database.getResult('/v3/ctgrupo', 'store', token, connection).then(result => {
                 done();
             }).catch(err => {
                 done(err);
